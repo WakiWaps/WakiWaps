@@ -87,20 +87,20 @@ document.getElementById('year').textContent = String(new Date().getFullYear());
 const cases = {
   buffer: {
     category: '01 / APPLICATION DEVELOPMENT', title: 'Buffer Stock Configuration',
-    intro: 'A configuration tool for e-commerce inventory workflows, combining a web interface, a FastAPI backend, and BigQuery integration.',
-    sections: [], walkthrough: 'buffer-walkthrough',
+    intro: 'ON/OFF buffer stock activation by marketplace and brand, with manual entry and spreadsheet previews.',
+    walkthrough: 'buffer-walkthrough',
     tags: ['Python', 'FastAPI', 'BigQuery', 'HTML / CSS / JavaScript', 'Testing']
   },
   exemption: {
     category: '02 / BACKEND & OPERATIONS', title: 'Product Exemption',
-    intro: 'An interface for managing SKU-level product exemptions by marketplace, store, and brand, with spreadsheet previews before confirmation.',
-    sections: [], walkthrough: 'exemption-walkthrough',
+    intro: 'SKU-level exemption records keyed by marketplace, store, brand, and SKU, with separate upload, deletion, and export workflows.',
+    walkthrough: 'exemption-walkthrough',
     tags: ['Python', 'FastAPI', 'BigQuery', 'HTML / CSS / JavaScript', 'Validation']
   },
   helpdesk: {
     category: '03 / IT OPERATIONS', title: 'osTicket Administration & Workflow Maintenance',
-    intro: 'I administer an existing osTicket helpdesk, maintaining request forms and ticket-assignment workflows as team requirements change. I configure filters that evaluate submitted ticket details and assign matching requests to designated support agents. My work also includes updating form fields and dropdown options to suit users’ and agents’ needs.',
-    sections: [], walkthrough: 'helpdesk-walkthrough',
+    intro: 'Ongoing forms and routing configuration within an existing osTicket helpdesk.',
+    walkthrough: 'helpdesk-walkthrough',
     tags: ['osTicket', 'Administration', 'Request forms', 'Ticket routing']
   }
 };
@@ -111,13 +111,15 @@ const expandedImage = document.getElementById('expanded-image');
 const imageViewport = document.getElementById('image-viewport');
 const imageZoom = document.getElementById('image-zoom');
 let imageTrigger = null;
+let imageReturnPosition = null;
+let projectReturnPosition = null;
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const clearCursorTrail = createCursorTrail();
+const clearCursorSpotlight = createCursorSpotlight();
 const motion = { transition: 240, reveal: 300, easing: 'cubic-bezier(.4, 0, .2, 1)' };
 const closingDialogs = new Map();
 
 function openDialog(element) {
-  clearCursorTrail();
+  clearCursorSpotlight();
   element.classList.remove('is-closing');
   element.showModal();
 }
@@ -163,10 +165,66 @@ function syncDialogScrollLock() {
   document.body.classList.toggle('dialog-open', dialog.open || imageDialog.open);
 }
 let lastTrigger = null;
+
+function createCaseNavigation() {
+  const navigation = document.createElement('nav');
+  navigation.id = 'case-sections';
+  navigation.className = 'case-nav';
+  navigation.setAttribute('aria-label', 'Project sections');
+  navigation.tabIndex = -1;
+  const label = document.createElement('p');
+  label.className = 'mini-label';
+  label.textContent = 'IN THIS PROJECT';
+  const list = document.createElement('ul');
+  caseContent.querySelectorAll('[data-case-section]').forEach(section => {
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = '#' + section.id;
+    link.textContent = section.dataset.caseSection;
+    item.append(link);
+    list.append(item);
+  });
+  navigation.append(label, list);
+  return navigation;
+}
+
+function settleDisclosure(details) {
+  const pending = disclosureAnimations.get(details);
+  if (pending) pending.animation.cancel();
+  disclosureAnimations.delete(details);
+  const body = details.querySelector(':scope > .disclosure-body');
+  if (body) {
+    body.classList.remove('is-animating');
+    body.inert = false;
+  }
+}
+
+dialog.addEventListener('click', event => {
+  const link = event.target.closest('.case-nav a, .case-sections-link');
+  if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const target = document.getElementById(link.hash.slice(1));
+  if (!target || !caseContent.contains(target)) return;
+  event.preventDefault();
+  // A section link also works while its disclosure is closed or animating.
+  for (let ancestor = target; ancestor && ancestor !== caseContent; ancestor = ancestor.parentElement) {
+    if (ancestor.tagName === 'DETAILS') {
+      settleDisclosure(ancestor);
+      ancestor.open = true;
+    }
+  }
+  const focusTarget = target.matches('details') ? target.querySelector(':scope > summary') :
+    target.querySelector('h3') || target;
+  if (!focusTarget.matches('summary')) focusTarget.tabIndex = -1;
+  focusTarget.focus({ preventScroll: true });
+  const top = caseContent.scrollTop + focusTarget.getBoundingClientRect().top - caseContent.getBoundingClientRect().top - 16;
+  caseContent.scrollTo({ top: Math.max(0, top), behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+});
+
 document.querySelectorAll('[data-case]').forEach(button => {
   button.addEventListener('click', () => {
     const data = cases[button.dataset.case];
     if (!data) return;
+    caseContent.querySelectorAll('.walkthrough-disclosure').forEach(settleDisclosure);
     caseContent.replaceChildren();
     const category = document.createElement('p');
     category.className = 'eyebrow';
@@ -178,33 +236,21 @@ document.querySelectorAll('[data-case]').forEach(button => {
     intro.className = 'case-intro';
     intro.textContent = data.intro;
     caseContent.append(category, title, intro);
-    data.sections.forEach(([heading, body]) => {
-      const section = document.createElement('details');
-      section.className = 'walkthrough-disclosure case-note';
-      section.open = true;
-      const summary = document.createElement('summary');
-      const h3 = document.createElement('h3');
-      h3.textContent = heading;
-      const content = document.createElement('div');
-      content.className = 'disclosure-body';
-      const p = document.createElement('p');
-      p.textContent = body;
-      summary.append(h3);
-      content.append(p);
-      section.append(summary, content);
-      caseContent.append(section);
-    });
     const tags = document.createElement('div');
     tags.className = 'tags';
     data.tags.forEach(tag => { const span = document.createElement('span'); span.textContent = tag; tags.append(span); });
-    caseContent.append(tags);
     if (data.walkthrough) caseContent.append(document.getElementById(data.walkthrough).content.cloneNode(true));
+    const navigation = createCaseNavigation();
+    const summary = caseContent.querySelector('.case-summary');
+    if (summary) summary.after(tags, navigation);
+    else caseContent.append(tags, navigation);
     dialog.classList.toggle('case-walkthrough', Boolean(data.walkthrough));
     lastTrigger = button;
+    projectReturnPosition = { left: window.scrollX, top: window.scrollY };
     openDialog(dialog);
     caseContent.scrollTop = 0;
     syncDialogScrollLock();
-    document.getElementById('close-dialog').focus();
+    document.getElementById('close-dialog').focus({ preventScroll: true });
     if (data.walkthrough === 'helpdesk-walkthrough' && revealObserver) {
       caseContent.querySelectorAll('.helpdesk-example').forEach(section => revealObserver.observe(section));
     }
@@ -219,7 +265,11 @@ dialog.addEventListener('click', event => {
 dialog.addEventListener('close', () => {
   if (revealObserver) caseContent.querySelectorAll('.helpdesk-example').forEach(section => revealObserver.unobserve(section));
   syncDialogScrollLock();
-  if (lastTrigger && !imageDialog.open) lastTrigger.focus({ preventScroll: true });
+  caseContent.querySelectorAll('.walkthrough-disclosure').forEach(settleDisclosure);
+  if (lastTrigger && !imageDialog.open) {
+    lastTrigger.focus({ preventScroll: true });
+    if (projectReturnPosition) window.scrollTo({ ...projectReturnPosition, behavior: 'instant' });
+  }
 });
 
 // Retain native modal behavior and restore the exact thumbnail after closing.
@@ -229,6 +279,7 @@ document.addEventListener('click', event => {
   const image = trigger.querySelector('img');
   if (!image) return;
   imageTrigger = trigger;
+  imageReturnPosition = { left: caseContent.scrollLeft, top: caseContent.scrollTop };
   expandedImage.src = image.currentSrc || image.src;
   expandedImage.alt = image.alt;
   expandedImage.width = Number(image.getAttribute('width'));
@@ -242,7 +293,7 @@ document.addEventListener('click', event => {
   openDialog(imageDialog);
   imageViewport.scrollTo(0, 0);
   syncDialogScrollLock();
-  document.getElementById('close-image').focus();
+  document.getElementById('close-image').focus({ preventScroll: true });
 });
 document.getElementById('close-image').addEventListener('click', () => closeDialog(imageDialog));
 imageDialog.addEventListener('click', event => {
@@ -252,7 +303,11 @@ imageDialog.addEventListener('click', event => {
 });
 imageDialog.addEventListener('close', () => {
   syncDialogScrollLock();
-  if (imageTrigger && imageTrigger.isConnected) imageTrigger.focus({ preventScroll: true });
+  if (dialog.open) {
+    if (imageTrigger && imageTrigger.isConnected) imageTrigger.focus({ preventScroll: true });
+    if (imageReturnPosition) caseContent.scrollTo({ ...imageReturnPosition, behavior: 'instant' });
+  }
+  imageReturnPosition = null;
 });
 imageZoom.addEventListener('click', () => {
   const zoomed = imageViewport.classList.toggle('is-zoomed');
@@ -371,141 +426,85 @@ reducedMotion.addEventListener('change', event => {
   });
 });
 
-// Distance-sampled dots share a fixed pool; only pointer movement emits them.
-function createCursorTrail() {
+// Two reused gradients animate only their transform and opacity.
+function createCursorSpotlight() {
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const coarsePointer = window.matchMedia('(any-pointer: coarse)');
-  const limit = 80;
-  const lifetime = 420;
-  const spacing = 2;
-  const reach = spacing * (limit - 1);
-  // Reuse a bounded input buffer even when the mouse reports faster than
-  // the display refreshes. Input handlers never change particle styles.
-  const inputLimit = 256;
-  const inputSamples = Array.from({ length: inputLimit }, () => ({ x: 0, y: 0, time: 0 }));
-  let inputStart = 0;
-  let inputCount = 0;
-  let lastInputTime = 0;
   let layer = null;
-  let particles = [];
-  let next = 0;
+  let head = null;
+  let wash = null;
   let frame = null;
-  let travelled = 0;
-  let distanceSinceEmission = 0;
-  let lastPosition = null;
+  let lastFrame = 0;
+  let lastMovement = 0;
+  let inside = false;
+  let idle = true;
   let suspended = false;
+  let x = 0;
+  let y = 0;
+  let washX = 0;
+  let washY = 0;
+  let transition = { start: 0, duration: 0, fromHead: 0, fromWash: 0, toHead: 0, toWash: 0 };
+
+  function intensity(now) {
+    const progress = transition.duration ? Math.min(Math.max((now - transition.start) / transition.duration, 0), 1) : 1;
+    const eased = 1 - (1 - progress) ** 3;
+    return {
+      head: transition.fromHead + (transition.toHead - transition.fromHead) * eased,
+      wash: transition.fromWash + (transition.toWash - transition.fromWash) * eased,
+      done: progress === 1
+    };
+  }
+
+  function fadeTo(toHead, toWash, duration, now) {
+    const current = intensity(now);
+    transition = { start: now, duration, fromHead: current.head, fromWash: current.wash, toHead, toWash };
+  }
+
+  function schedule() {
+    if (frame !== null || !layer) return;
+    lastFrame = performance.now();
+    frame = window.requestAnimationFrame(animate);
+  }
 
   function clear() {
     if (frame !== null) window.cancelAnimationFrame(frame);
     frame = null;
-    lastPosition = null;
-    inputStart = 0;
-    inputCount = 0;
-    lastInputTime = 0;
-    travelled = 0;
-    distanceSinceEmission = 0;
-    particles.forEach(particle => {
-      if (!particle.active) return;
-      particle.active = false;
-      particle.element.style.opacity = '0';
-    });
+    inside = false;
+    idle = true;
+    transition = { start: 0, duration: 0, fromHead: 0, fromWash: 0, toHead: 0, toWash: 0 };
+    if (head) head.style.opacity = '0';
+    if (wash) wash.style.opacity = '0';
   }
 
   function animate(now) {
     frame = null;
-    for (let index = 0; index < inputCount; index++) {
-      const point = inputSamples[(inputStart + index) % inputLimit];
-      sampleSegment(point.x, point.y, point.time);
+    const elapsed = Math.max(0, now - lastFrame);
+    lastFrame = now;
+    if (inside && !idle && now >= lastMovement + 120) {
+      idle = true;
+      fadeTo(.18, 0, 650, lastMovement + 120);
     }
-    inputStart = (inputStart + inputCount) % inputLimit;
-    inputCount = 0;
-    let active = false;
-    particles.forEach(particle => {
-      if (!particle.active) return;
-      const age = Math.max(0, (now - particle.born) / lifetime);
-      const tail = Math.min((travelled - particle.distance) / reach, 1);
-      if (age >= 1 || tail >= 1) {
-        particle.active = false;
-        particle.element.style.opacity = '0';
-        return;
-      }
-      // Fade along the recorded path as well as over time. Scaling also
-      // narrows the static glow, without repainting a changing shadow.
-      const strength = (1 - tail) * (1 - age) ** 1.3;
-      const scale = .25 + .75 * (1 - tail) * (1 - age * .65);
-      if (particle.positionDirty) {
-        particle.element.style.translate = `${particle.x - 1.5}px ${particle.y - 1.5}px`;
-        particle.positionDirty = false;
-      }
-      particle.element.style.scale = String(scale);
-      particle.element.style.opacity = String(.85 * strength);
-      active = true;
-    });
-    if (active) frame = window.requestAnimationFrame(animate);
+    const light = intensity(now);
+    // The head uses the latest pointer directly. Only the faint wash follows;
+    // exponential elapsed-time easing has no refresh-rate-specific step.
+    const follow = 1 - Math.exp(-elapsed / 160);
+    washX += (x - washX) * follow;
+    washY += (y - washY) * follow;
+    const headTransform = `translate3d(${x}px, ${y}px, 0)`;
+    const washTransform = `translate3d(${washX}px, ${washY}px, 0)`;
+    if (head.style.transform !== headTransform) head.style.transform = headTransform;
+    if (wash.style.transform !== washTransform) wash.style.transform = washTransform;
+    head.style.opacity = String(light.head);
+    wash.style.opacity = String(light.wash);
+    if (!light.done || (inside && !idle)) frame = window.requestAnimationFrame(animate);
   }
 
-  function emit(x, y, distance, now) {
-    const particle = particles[next];
-    particle.active = true;
-    particle.born = now;
-    particle.x = x;
-    particle.y = y;
-    particle.distance = distance;
-    particle.positionDirty = true;
-    next = (next + 1) % limit;
-  }
-
-  function sampleSegment(x, y, time) {
-    if (!lastPosition) {
-      lastPosition = { x, y, time };
-      emit(x, y, travelled, time);
-      return;
-    }
-    const dx = x - lastPosition.x;
-    const dy = y - lastPosition.y;
-    const distance = Math.hypot(dx, dy);
-    if (!distance) return;
-    const first = spacing - distanceSinceEmission;
-    const count = Math.max(0, Math.floor((distance - first) / spacing) + 1);
-    // Interpolate birth times too, so coalesced samples don't fade in bands.
-    // A long pause at one location isn't time spent moving this segment.
-    const startTime = Math.max(lastPosition.time, time - 50);
-    // Interpolate every two pixels, retaining only the last pool-worth on
-    // very large jumps. Carry the remainder through slow moves and turns.
-    for (let index = Math.max(0, count - limit); index < count; index++) {
-      const offset = first + index * spacing;
-      const fraction = offset / distance;
-      const born = startTime + (time - startTime) * fraction;
-      emit(lastPosition.x + dx * fraction, lastPosition.y + dy * fraction, travelled + offset, born);
-    }
-    travelled += distance;
-    distanceSinceEmission = (distanceSinceEmission + distance) % spacing;
-    lastPosition.x = x;
-    lastPosition.y = y;
-    lastPosition.time = time;
-  }
-
-  function queuePoint(point, now) {
-    let time = point.timeStamp;
-    if (!Number.isFinite(time) || time <= 0) time = now;
-    // Older event implementations may report epoch-based timestamps.
-    if (time > now + 1000) time -= performance.timeOrigin;
-    time = Math.max(lastInputTime, Math.min(now, time));
-    lastInputTime = time;
-    const previous = inputCount ? inputSamples[(inputStart + inputCount - 1) % inputLimit] : lastPosition;
-    if (previous && previous.x === point.clientX && previous.y === point.clientY) {
-      previous.time = time;
-      return;
-    }
-    if (inputCount === inputLimit) {
-      inputStart = (inputStart + 1) % inputLimit;
-      inputCount--;
-    }
-    const sample = inputSamples[(inputStart + inputCount) % inputLimit];
-    sample.x = point.clientX;
-    sample.y = point.clientY;
-    sample.time = time;
-    inputCount++;
+  function leave() {
+    if (!layer || !inside) return;
+    inside = false;
+    idle = true;
+    fadeTo(0, 0, 420, performance.now());
+    schedule();
   }
 
   function move(event) {
@@ -515,15 +514,22 @@ function createCursorTrail() {
       return;
     }
     const now = performance.now();
-    const coalesced = event.getCoalescedEvents ? event.getCoalescedEvents() : [];
-    (coalesced.length ? coalesced : [event]).forEach(point => {
-      queuePoint(point, now);
-    });
-    // Include the latest dispatched position if the coalesced list omits it.
-    if (coalesced.length) queuePoint(event, now);
-    if (inputCount && frame === null) {
-      frame = window.requestAnimationFrame(animate);
+    if (!inside) {
+      inside = true;
+      idle = false;
+      washX = event.clientX;
+      washY = event.clientY;
+      fadeTo(1, .24, 180, now);
+    } else if (x === event.clientX && y === event.clientY) {
+      return;
+    } else if (idle) {
+      idle = false;
+      fadeTo(1, .24, 120, now);
     }
+    x = event.clientX;
+    y = event.clientY;
+    lastMovement = now;
+    schedule();
   }
 
   function sync() {
@@ -532,27 +538,29 @@ function createCursorTrail() {
     if (enabled === Boolean(layer)) return;
     clear();
     document.removeEventListener('pointermove', move);
+    document.documentElement.removeEventListener('pointerenter', move);
     if (layer) layer.remove();
     layer = null;
-    particles = [];
-    next = 0;
+    head = null;
+    wash = null;
     if (!enabled) return;
     layer = document.createElement('div');
-    layer.className = 'cursor-trail';
+    layer.className = 'cursor-spotlight';
     layer.setAttribute('aria-hidden', 'true');
     layer.inert = true;
-    particles = Array.from({ length: limit }, () => {
-      const element = document.createElement('span');
-      layer.append(element);
-      return { element, active: false };
-    });
-    // A regular body layer always stays below the native modal top layer.
+    head = document.createElement('span');
+    head.className = 'spotlight-head';
+    wash = document.createElement('span');
+    wash.className = 'spotlight-wash';
+    layer.append(wash, head);
+    // The body's isolated negative layer is beneath content and native modals.
     document.body.append(layer);
     document.addEventListener('pointermove', move, { passive: true });
+    document.documentElement.addEventListener('pointerenter', move, { passive: true });
   }
 
   [finePointer, coarsePointer, reducedMotion].forEach(query => query.addEventListener('change', sync));
-  document.documentElement.addEventListener('pointerleave', clear);
+  document.documentElement.addEventListener('pointerleave', leave);
   document.addEventListener('pointercancel', clear);
   document.addEventListener('visibilitychange', sync);
   window.addEventListener('blur', clear);

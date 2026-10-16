@@ -11,9 +11,9 @@
   <meta property="og:url" content="https://wakiwaps.github.io/WakiWaps/">
   <link rel="canonical" href="https://wakiwaps.github.io/WakiWaps/">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./styles.css?v=20261015-cursor-trail-v3">
+  <link rel="stylesheet" href="./styles.css?v=20261016-background-spotlight">
   <script src="./lab-core.js" defer></script>
-  <script src="./app.js?v=20261015-cursor-trail-v3" defer></script>
+  <script src="./app.js?v=20261016-background-spotlight" defer></script>
   <title>Joaquin Peñafiel — Developer & IT Portfolio</title>
 </head>
 
@@ -135,27 +135,32 @@
     </section>
   </main>
   <footer class="shell site-footer"><a class="brand-mark" href="#top" aria-label="Back to top">jp<span>.</span></a><span>© <span id="year">2026</span> Joaquin Peñafiel</span><span>Built with intent. Always learning.</span></footer>
-  <dialog id="case-dialog" aria-labelledby="case-title"><div class="dialog-topline"><span class="mini-label">PROJECT DETAILS</span><button class="close-button close-project" id="close-dialog" type="button" aria-label="Close project details">Close <svg class="icon" aria-hidden="true"><use href="#close"/></svg></button></div><div id="case-content" role="region" aria-label="Project details content" tabindex="0"></div><div class="dialog-footer"><span>Curious about how I work?</span><a class="text-link" href="https://www.linkedin.com/in/joaquin-pe%C3%B1afiel-202562292/" target="_blank" rel="noopener noreferrer">Let’s connect <svg class="icon"><use href="#arrow-up"/></svg></a></div></dialog>
+  <dialog id="case-dialog" aria-labelledby="case-title"><div class="dialog-topline"><span class="mini-label">PROJECT DETAILS</span><div class="dialog-tools"><a class="case-sections-link" href="#case-sections">Sections</a><button class="close-button close-project" id="close-dialog" type="button" aria-label="Close project details">Close <svg class="icon" aria-hidden="true"><use href="#close"/></svg></button></div></div><div id="case-content" role="region" aria-label="Project details content" tabindex="0"></div><div class="dialog-footer"><span>Curious about how I work?</span><a class="text-link" href="https://www.linkedin.com/in/joaquin-pe%C3%B1afiel-202562292/" target="_blank" rel="noopener noreferrer">Let’s connect <svg class="icon"><use href="#arrow-up"/></svg></a></div></dialog>
 
   <template id="buffer-walkthrough">
-    <p class="walkthrough-intro">This tool manages buffer stock activation by marketplace and brand, using ON or OFF statuses.</p>
-    <div class="project-scope">
-      <p class="eyebrow">PROJECT FOCUS</p>
-      <ul class="walkthrough-steps"><li>Manual configuration and spreadsheet previews</li><li>Changes across frontend, service, and data layers</li><li>Validation and tests alongside implementation</li></ul>
-    </div>
+    <section class="case-summary" id="buffer-summary" data-case-section="Summary" aria-labelledby="buffer-summary-title">
+      <h3 id="buffer-summary-title">Project at a glance</h3>
+      <dl class="case-summary-grid">
+        <div><dt>Problem</dt><dd>Manage ON/OFF buffer stock activation for each marketplace and brand, through manual entry or spreadsheet changes.</dd></div>
+        <div><dt>My role</dt><dd>Application development contributor across the interface, service, and data layers.</dd></div>
+        <div><dt>Contribution</dt><dd>Contributed to manual configuration, spreadsheet previews, and validation, with FastAPI and BigQuery integration.</dd></div>
+        <div><dt>Evidence</dt><dd>Screenshots show configuration records, the entry form, status options, and valid and invalid spreadsheet previews before submission.</dd></div>
+      </dl>
+    </section>
+    <p class="walkthrough-intro">The tool controls activation by marketplace and brand; it does not set stock quantities. Select any screenshot to enlarge it.</p>
     <div class="buffer-walkthrough">
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="buffer-overview" data-case-section="Overview" open>
         <summary><span class="walkthrough-index">01 / CONFIGURATION OVERVIEW</span><h3 id="walkthrough-overview-title">Configuration overview</h3></summary>
         <div class="disclosure-body"><section class="walkthrough-step" aria-labelledby="walkthrough-overview-title">
-        <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Configuration overview" data-image-caption="View buffer stock configurations by marketplace and brand, with ON/OFF statuses, created and updated dates, search, filters, and edit controls." aria-label="Enlarge configuration overview screenshot">
+        <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Configuration overview" data-image-caption="Each marketplace and brand pair has an activation status; search, filters, and Edit controls sit alongside the records." aria-label="Enlarge configuration overview screenshot">
               <img src="./assets/buffer-stock/overview.png" alt="Buffer Stock Configuration overview with marketplace and brand records, OFF statuses, created and updated dates, search, marketplace and status filters, and Edit controls." width="2016" height="1332" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
             </button></figure>
         <div class="walkthrough-copy">
-          <p class="walkthrough-caption">View buffer stock configurations by marketplace and brand, with ON/OFF statuses, created and updated dates, search, filters, and edit controls.</p>
+          <p class="walkthrough-caption">Each marketplace and brand pair has an activation status; search, filters, and Edit controls sit alongside the records.</p>
         </div>
       </section></div></details>
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="buffer-manual" data-case-section="Manual entry" open>
         <summary><span class="walkthrough-index">02 / MANUAL CONFIGURATION</span><h3 id="walkthrough-manual-title">Manual configuration</h3></summary>
         <div class="disclosure-body"><section class="walkthrough-step" aria-labelledby="walkthrough-manual-title">
         <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Manual configuration" data-image-caption="The Add Configuration form before submission." aria-label="Enlarge manual configuration screenshot">
@@ -184,39 +189,37 @@
           </div>
         </div>
       </section></div></details>
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="buffer-upload" data-case-section="Upload preview" open>
         <summary><span class="walkthrough-index">04 / BULK UPLOAD ALTERNATIVE</span><h3 id="walkthrough-bulk-title">Bulk upload preview</h3></summary>
         <div class="disclosure-body"><section class="walkthrough-step" aria-labelledby="walkthrough-bulk-title">
-        <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Bulk upload preview" data-image-caption="Review spreadsheet rows before continuing the upload. This example shows two valid new records with ON and OFF statuses." aria-label="Enlarge bulk upload preview screenshot">
+        <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Bulk upload preview" data-image-caption="Two valid new records show ON and OFF statuses before the upload continues." aria-label="Enlarge bulk upload preview screenshot">
               <img src="./assets/buffer-stock/bulk-preview.png" alt="Upload Preview showing 2 total rows, 2 valid, 0 invalid, 0 duplicates, 2 new, and 0 updates; LAZADA Example Brand A is ON and SHOPEE Example Brand B is OFF, both classified NEW." width="2016" height="1332" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
             </button></figure>
         <div class="walkthrough-copy">
           <p>Bulk upload is an alternative to manual entry.</p>
-          <p class="walkthrough-caption">Review spreadsheet rows before continuing the upload. This example shows two valid new records with ON and OFF statuses.</p>
+          <p class="walkthrough-caption">Two valid new records show ON and OFF statuses before the upload continues.</p>
           <dl class="preview-totals"><div><dt>Total rows</dt><dd>2</dd></div><div><dt>Valid rows</dt><dd>2</dd></div><div><dt>Invalid rows</dt><dd>0</dd></div><div><dt>Duplicate rows</dt><dd>0</dd></div><div><dt>New rows</dt><dd>2</dd></div><div><dt>Update rows</dt><dd>0</dd></div></dl>
-          <p>Both visible rows are classified <strong>NEW</strong>: LAZADA / EXAMPLE BRAND A is <strong>ON</strong>, and SHOPEE / EXAMPLE BRAND B is <strong>OFF</strong>. The preview reports no invalid, duplicate, or update rows.</p>
         </div>
       </section></div></details>
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="buffer-validation" data-case-section="Validation" open>
         <summary><span class="walkthrough-index">05 / SEPARATE VALIDATION EXAMPLE</span><h3 id="walkthrough-validation-title">Validation example</h3></summary>
         <div class="disclosure-body"><section class="walkthrough-step" aria-labelledby="walkthrough-validation-title">
-        <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Validation example" data-image-caption="The preview flags an unsupported status before upload: NEUTRAL is invalid because accepted values are ON and OFF." aria-label="Enlarge validation example screenshot">
+        <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Validation example" data-image-caption="NEUTRAL is flagged INVALID; the row message identifies ON and OFF as the accepted statuses." aria-label="Enlarge validation example screenshot">
               <img src="./assets/buffer-stock/validation-example.png" alt="Separate Upload Preview showing 3 total rows, 2 valid and 1 invalid; TIKTOK Example Brand C has NEUTRAL status and an INVALID message stating accepted values are ON and OFF." width="2016" height="1332" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
             </button></figure>
         <div class="walkthrough-copy">
-          <p class="walkthrough-caption">The preview flags an unsupported status before upload: NEUTRAL is invalid because accepted values are ON and OFF.</p>
+          <p class="walkthrough-caption">NEUTRAL is flagged <strong>INVALID</strong>; the row message identifies ON and OFF as the accepted statuses.</p>
           <p>This is a separate preview with three rows.</p>
           <dl class="preview-totals"><div><dt>Total rows</dt><dd>3</dd></div><div><dt>Valid rows</dt><dd>2</dd></div><div><dt>Invalid rows</dt><dd>1</dd></div><div><dt>Duplicate rows</dt><dd>0</dd></div><div><dt>New rows</dt><dd>2</dd></div><div><dt>Update rows</dt><dd>0</dd></div></dl>
-          <p>The LAZADA / EXAMPLE BRAND A (<strong>ON</strong>) and SHOPEE / EXAMPLE BRAND B (<strong>OFF</strong>) rows are valid and classified <strong>NEW</strong>. TIKTOK / EXAMPLE BRAND C has <strong>NEUTRAL</strong> status and is classified <strong>INVALID</strong>.</p>
         </div>
       </section></div></details>
     </div>
-    <details class="additional-features walkthrough-disclosure" open>
+    <details class="additional-features walkthrough-disclosure" id="buffer-additional" data-case-section="Other workflows" open>
       <summary class="additional-features-heading">
-        <h3 id="buffer-others-title">Others</h3>
-        <p>Additional features</p>
+        <h3 id="buffer-others-title">Other workflows</h3>
+        <p>Templates, exports, updates, and deletion</p>
       </summary>
       <div class="disclosure-body"><ul class="additional-features-grid">
         <li>
@@ -245,20 +248,35 @@
         </li>
       </ul></div>
     </details>
+    <section class="case-reasoning" id="buffer-reasoning" data-case-section="Decisions &amp; verification" aria-labelledby="buffer-reasoning-title">
+      <h3 id="buffer-reasoning-title">Challenge, approach &amp; verification</h3>
+      <p><strong>Challenge.</strong> Activation is specific to a marketplace and brand pair. Spreadsheet changes need to distinguish valid ON/OFF settings from unsupported input before submission.</p>
+      <p><strong>Approach.</strong> Manual entry makes the pair and status explicit. Bulk entry adds a review step with row classifications and validation messages so the intended changes can be checked before continuing.</p>
+      <p><strong>Verification.</strong> The supplied previews visibly classify two valid new records and flag NEUTRAL as invalid in a separate example. These screenshots document pre-submission states; they do not establish successful saving, backend persistence, or end-to-end test results.</p>
+    </section>
   </template>
   <template id="exemption-walkthrough">
-    <p class="walkthrough-intro">Browse exemptions, review spreadsheet changes, or choose an export. Bulk upload, bulk deletion, and export are separate workflows. Select any screenshot to enlarge it.</p>
+    <section class="case-summary" id="exemption-summary" data-case-section="Summary" aria-labelledby="exemption-summary-title">
+      <h3 id="exemption-summary-title">Project at a glance</h3>
+      <dl class="case-summary-grid">
+        <div><dt>Problem</dt><dd>Manage SKU-level exemption records identified by marketplace, store, brand, and SKU.</dd></div>
+        <div><dt>My role</dt><dd>Development contributor to product record modeling and validation.</dd></div>
+        <div><dt>Contribution</dt><dd>Contributed to data-model, validation, and test work for product exemption records.</dd></div>
+        <div><dt>Evidence</dt><dd>Screenshots show record browsing, upload and deletion previews before confirmation, and separate export options.</dd></div>
+      </dl>
+    </section>
+    <p class="walkthrough-intro">Bulk upload, bulk deletion, and export are separate workflows. Select any screenshot to enlarge it.</p>
     <div class="exemption-walkthrough">
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="exemption-overview" data-case-section="Overview" open>
         <summary><span class="walkthrough-index">01 / OVERVIEW</span><h3 id="exemption-overview-title">Overview</h3></summary>
         <div class="disclosure-body"><section class="walkthrough-step" aria-labelledby="exemption-overview-title">
-          <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Product Exemption — Overview" data-image-caption="Browse SKU-level exemptions by marketplace, store, and brand. Search or combine the filters to narrow the records; use pagination to browse the results." aria-label="Enlarge Product Exemption overview screenshot">
+          <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Product Exemption — Overview" data-image-caption="SKU search and marketplace, store, and brand filters narrow the records; pagination keeps the results browsable." aria-label="Enlarge Product Exemption overview screenshot">
             <img src="./assets/product-exemption/product-exemption-overview.png" alt="Product Exemption dashboard with SKU search, marketplace, store and brand filters, exemption records, dates, selection checkboxes and pagination." width="1896" height="1340" loading="eager" decoding="async">
             <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
           </button></figure>
           <div class="walkthrough-copy">
-            <p class="walkthrough-caption">Browse SKU-level exemptions by marketplace, store, and brand. Search or combine the filters to narrow the records; use pagination to browse the results.</p>
-            <p>Each row includes Marketplace, Store, Brand, SKU, Created Date, and Updated Date.</p>
+            <p class="walkthrough-caption">SKU search and marketplace, store, and brand filters narrow the records; pagination keeps the results browsable.</p>
+            <p>A record’s key combines <strong>Marketplace, Store, Brand, and SKU</strong>. Rows also show created and updated dates.</p>
           </div>
         </section></div>
       </details>
@@ -275,50 +293,50 @@
           </div>
         </section></div>
       </details>
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="exemption-upload" data-case-section="Upload" open>
         <summary><span class="walkthrough-index">03 / BULK UPLOAD</span><h3 id="exemption-upload-title">Bulk upload</h3></summary>
         <div class="disclosure-body"><section class="walkthrough-step" aria-labelledby="exemption-upload-title">
-          <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Product Exemption — Bulk upload preview" data-image-caption="Three new records are accepted and ready to upload. This screenshot shows the preview before confirmation." aria-label="Enlarge Product Exemption bulk upload preview screenshot">
+          <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Product Exemption — Bulk upload preview" data-image-caption="Three new records are accepted in the preview; Confirm Upload has not yet been selected." aria-label="Enlarge Product Exemption bulk upload preview screenshot">
             <img src="./assets/product-exemption/product-exemption-bulk-upload-preview.png" alt="Upload Preview with 3 spreadsheet rows accepted as new records, zero exclusions, existing records, duplicates or invalid rows, a row preview, Cancel and Confirm Upload before saving." width="1896" height="1340" loading="eager" decoding="async">
             <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
           </button></figure>
           <div class="walkthrough-copy">
-            <p class="walkthrough-caption">Three new records are accepted and ready to upload. This screenshot shows the preview before confirmation.</p>
-            <ol class="walkthrough-steps"><li>Download the upload template and fill in Marketplace, Store, Brand, and SKU.</li><li>Choose <strong>Actions → Upload</strong> and select the completed .xlsx file.</li><li>Review the totals and row results, then choose <strong>Confirm Upload</strong> or <strong>Cancel</strong>.</li></ol><p>Existing exemptions and their dates remain unchanged.</p>
+            <p class="walkthrough-caption">Three new records are accepted in the preview; Confirm Upload has not yet been selected.</p>
+            <ol class="walkthrough-steps"><li>Download the upload template and fill in Marketplace, Store, Brand, and SKU.</li><li>Choose <strong>Actions → Upload</strong> and select the completed .xlsx file.</li><li>Review the totals and row results, then choose <strong>Confirm Upload</strong> or <strong>Cancel</strong>.</li></ol><p>The confirmation text states that existing exemptions and their dates will remain unchanged.</p>
           </div>
         </section></div>
       </details>
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="exemption-delete" data-case-section="Deletion" open>
         <summary><span class="walkthrough-index">04 / BULK DELETION</span><h3 id="exemption-delete-title">Bulk deletion</h3></summary>
         <div class="disclosure-body"><section class="walkthrough-step" aria-labelledby="exemption-delete-title">
-          <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Product Exemption — Bulk deletion preview" data-image-caption="Four unique demo records match the deletion file. The preview and warning appear before any deletion is confirmed." aria-label="Enlarge Product Exemption bulk deletion preview screenshot">
+          <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Product Exemption — Bulk deletion preview" data-image-caption="Four unique demo records match; a permanent-deletion warning appears before confirmation." aria-label="Enlarge Product Exemption bulk deletion preview screenshot">
             <img src="./assets/product-exemption/product-exemption-bulk-delete-preview.png" alt="Bulk Delete Preview with 4 valid spreadsheet rows matching 4 unique demo records, zero invalid, duplicate or not-found rows, a permanent deletion warning, Cancel and Confirm Delete before deletion." width="2036" height="1328" loading="eager" decoding="async">
             <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
           </button></figure>
           <div class="walkthrough-copy">
-            <p class="walkthrough-caption">Four unique demo records match the deletion file. The preview and warning appear before any deletion is confirmed.</p>
-            <ol class="walkthrough-steps"><li>Download the delete template and enter each record’s Marketplace, Store, Brand, and SKU.</li><li>Choose <strong>Actions → Bulk Delete</strong> and select the completed .xlsx file.</li><li>Review the matched rows and warning, then choose <strong>Confirm Delete</strong> or <strong>Cancel</strong>.</li></ol><p>Only exact matches across all four fields are deleted after confirmation. Cancel makes no changes.</p>
+            <p class="walkthrough-caption">Four unique demo records match; a permanent-deletion warning appears before confirmation.</p>
+            <ol class="walkthrough-steps"><li>Download the delete template and enter each record’s Marketplace, Store, Brand, and SKU.</li><li>Choose <strong>Actions → Bulk Delete</strong> and select the completed .xlsx file.</li><li>Review the matched rows and warning, then choose <strong>Confirm Delete</strong> or <strong>Cancel</strong>.</li></ol><p>The stated behavior is to delete only exact matches across all four fields after confirmation; Cancel makes no changes.</p>
           </div>
         </section></div>
       </details>
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="exemption-export" data-case-section="Export" open>
         <summary><span class="walkthrough-index">05 / EXPORT</span><h3 id="exemption-export-title">Export</h3></summary>
         <div class="disclosure-body"><section class="walkthrough-step" aria-labelledby="exemption-export-title">
-          <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Product Exemption — Export" data-image-caption="Export all available records or only those matching the current search and filters. The dialog shows seven matching records before an export is selected." aria-label="Enlarge Product Exemption export screenshot">
+          <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Product Exemption — Export" data-image-caption="Separate options offer all records or filtered records; the dialog reports seven matches." aria-label="Enlarge Product Exemption export screenshot">
             <img src="./assets/product-exemption/product-exemption-export-options.png" alt="Export Data dialog with Export All Data, Export Filtered Data, a count of 7 matching records and Cancel, before a download is selected." width="1896" height="1340" loading="eager" decoding="async">
             <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
           </button></figure>
           <div class="walkthrough-copy">
-            <p class="walkthrough-caption">Export all available records or only those matching the current search and filters. The dialog shows seven matching records before an export is selected.</p>
+            <p class="walkthrough-caption">Separate options offer all records or filtered records; the dialog reports seven matches.</p>
             <ol class="walkthrough-steps"><li>Apply a search or filters if needed, then choose <strong>Actions → Export XLSX</strong>.</li><li>Choose <strong>Export All Data</strong> for every available record, or <strong>Export Filtered Data</strong> for matches across all pages.</li></ol><p>Export is independent of the upload and deletion workflows.</p>
           </div>
         </section></div>
       </details>
     </div>
-    <details class="additional-features walkthrough-disclosure" open>
+    <details class="additional-features walkthrough-disclosure" id="exemption-additional" data-case-section="Other workflows" open>
       <summary class="additional-features-heading">
-        <h3 id="exemption-others-title">Others</h3>
-        <p>Additional features</p>
+        <h3 id="exemption-others-title">Other workflows</h3>
+        <p>Manual entry, selected deletion, and safeguards</p>
       </summary>
       <div class="disclosure-body"><ul class="additional-features-grid">
         <li>
@@ -339,12 +357,23 @@
         </li>
       </ul></div>
     </details>
+    <section class="case-reasoning" id="exemption-reasoning" data-case-section="Decisions &amp; verification" aria-labelledby="exemption-reasoning-title">
+      <h3 id="exemption-reasoning-title">Challenge, approach &amp; verification</h3>
+      <p><strong>Challenge.</strong> An exemption belongs to a four-field key, so a SKU alone does not identify the record to change. Upload, deletion, and export also require different review and confirmation steps.</p>
+      <p><strong>Approach.</strong> Separate spreadsheet templates and previews make the intended operation explicit. Deletion reviews exact key matches and presents a permanent-deletion warning; export offers a separate choice between all records and the current filtered set.</p>
+      <p><strong>Verification.</strong> The screenshots show three new rows accepted in an upload preview, four unique matched demo records in a deletion preview, and seven matches in the export dialog. They document review states and stated behavior, not completed database changes, downloaded files, or end-to-end test results.</p>
+    </section>
   </template>
   <template id="helpdesk-walkthrough">
-    <aside class="project-scope helpdesk-scope" aria-label="Administration scope">
-      <p class="eyebrow">ADMINISTRATION SCOPE</p>
-      <p>The helpdesk was established before I joined the company. My role is ongoing administration and configuration of the existing system, including maintaining applicable filters and checking assignment behavior as team needs change.</p>
-    </aside>
+    <section class="case-summary" id="helpdesk-summary" data-case-section="Summary" aria-labelledby="helpdesk-summary-title">
+      <h3 id="helpdesk-summary-title">Project at a glance</h3>
+      <dl class="case-summary-grid">
+        <div><dt>Problem</dt><dd>Structured support-request intake and condition-based assignment within an existing osTicket helpdesk.</dd></div>
+        <div><dt>My role</dt><dd>Ongoing administration and configuration. The helpdesk was established before I joined; I did not originally build, install, or deploy it.</dd></div>
+        <div><dt>Contribution</dt><dd>Maintain request forms, dropdown options, routing filters, and designated-agent assignment as team needs change.</dd></div>
+        <div><dt>Evidence</dt><dd>Ten screenshots show form settings, requestor views, configured routing rules and actions, and operational context. They do not document one end-to-end ticket-routing test.</dd></div>
+      </dl>
+    </section>
     <div class="helpdesk-routing" aria-labelledby="helpdesk-routing-title">
       <h3 id="helpdesk-routing-title">Intended ticket-routing flow</h3>
       <ol>
@@ -354,109 +383,115 @@
         <li>Agent handles the ticket in osTicket</li>
       </ol>
     </div>
-    <p class="walkthrough-intro">These screenshots illustrate related areas of administration, rather than a recorded end-to-end test of one ticket. The partially completed form shown does not establish a match with the example filter. Select any screenshot to enlarge it.</p>
+    <p class="walkthrough-intro">Follow the ten screenshots from administration settings to operational context. Select any screenshot to enlarge it.</p>
     <div class="helpdesk-walkthrough">
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="helpdesk-form-settings" data-case-section="Form settings" open>
         <summary><span class="walkthrough-index">SECTION A / ADMIN CONFIGURATION</span><h3>Maintaining form configuration</h3></summary>
         <div class="disclosure-body">
           <section class="helpdesk-example" aria-labelledby="helpdesk-lists-title">
             <div class="helpdesk-example-heading"><span class="walkthrough-index">01 / 10</span><h4 id="helpdesk-lists-title">Custom Lists</h4></div>
-            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Custom Lists" data-image-caption="Reusable dropdown lists are maintained in the existing admin interface." aria-label="Enlarge Custom Lists screenshot">
+            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Custom Lists" data-image-caption="Reusable lists supply options for brands, platforms, regions, and stores." aria-label="Enlarge Custom Lists screenshot">
               <img src="./assets/helpdesk/custom-lists.png" alt="osTicket Custom Lists admin page listing reusable dropdown sources, including platforms, stores, regions, brands, and request types." width="820" height="537" loading="eager" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
-            </button></figure>
-            <p>Reusable dropdown lists are maintained here, including categories such as platforms, stores, regions, and request types. I update applicable options in response to team needs; the list includes existing configurations and does not imply that I created every entry.</p>
+            </button><figcaption>Reusable lists supply options for brands, platforms, regions, and stores.</figcaption></figure>
+            <p>I update applicable dropdown options as team needs change. This list includes existing configurations and does not imply that I created every entry.</p>
           </section>
           <section class="helpdesk-example" aria-labelledby="helpdesk-editor-title">
             <div class="helpdesk-example-heading"><span class="walkthrough-index">02 / 10</span><h4 id="helpdesk-editor-title">Admin form editor</h4></div>
-            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Admin form editor" data-image-caption="Field labels, types, dropdown sources, and required settings are managed through admin configuration." aria-label="Enlarge admin form editor screenshot">
+            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Admin form editor" data-image-caption="Required and optional settings sit alongside each field’s type and dropdown source." aria-label="Enlarge admin form editor screenshot">
               <img src="./assets/helpdesk/admin-form-editor.png" alt="osTicket Ticket Details form editor with field labels, types, configuration buttons, required or optional visibility, and variable names." width="972" height="885" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
-            </button></figure>
-            <p>I adapt the existing form through field labels, field types, dropdown sources, and required or optional settings in response to team requests. This is admin configuration within osTicket.</p>
+            </button><figcaption>Required and optional settings sit alongside each field’s type and dropdown source.</figcaption></figure>
+            <p>I adapt labels, field types, list sources, and required settings in the existing admin form in response to team requests.</p>
           </section>
         </div>
       </details>
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="helpdesk-requestor-form" data-case-section="Requestor form" open>
         <summary><span class="walkthrough-index">SECTION B / REQUESTOR INTERFACE</span><h3>What the requestor sees</h3></summary>
         <div class="disclosure-body">
           <section class="helpdesk-example" aria-labelledby="helpdesk-topic-title">
             <div class="helpdesk-example-heading"><span class="walkthrough-index">03 / 10</span><h4 id="helpdesk-topic-title">Help-topic selection</h4></div>
-            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Help-topic selection" data-image-caption="Requestors choose the category that describes their concern before completing the form." aria-label="Enlarge help-topic selection screenshot">
+            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Help-topic selection" data-image-caption="The expanded Help Topic menu shows the available support categories." aria-label="Enlarge help-topic selection screenshot">
               <img src="./assets/helpdesk/help-topic-selection.jpg" alt="osTicket Open a New Ticket page with the Help Topic dropdown expanded to show support categories." width="778" height="868" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
-            </button></figure>
-            <p>Requestors choose the help topic that describes their concern. This view illustrates category selection; it does not show an agent assignment.</p>
+            </button><figcaption>The expanded Help Topic menu shows the available support categories.</figcaption></figure>
+            <p>Category selection starts the intended workflow. This view does not show an agent assignment.</p>
           </section>
           <section class="helpdesk-example" aria-labelledby="helpdesk-form-title">
             <div class="helpdesk-example-heading"><span class="walkthrough-index">04 / 10</span><h4 id="helpdesk-form-title">Request-form overview</h4></div>
-            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Request-form overview" data-image-caption="The request form collects structured details alongside an issue summary." aria-label="Enlarge request-form overview screenshot">
+            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Request-form overview" data-image-caption="The partially completed form shows structured fields and request-date guidance." aria-label="Enlarge request-form overview screenshot">
               <img src="./assets/helpdesk/request-form-overview.jpg" alt="Partially completed osTicket request form showing request type, request date, start and end dates, region, platform, store, brand, and issue summary fields." width="870" height="867" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
-            </button></figure>
-            <p>The form collects request type, request date, start and end dates, region, platform, store, brand, and an issue summary. These fields structure the information available when a request is submitted.</p>
+            </button><figcaption>The partially completed form shows structured fields and request-date guidance.</figcaption></figure>
+            <p>Region, platform, store, brand, and issue summary provide context for a submitted request. The partially completed example does not establish a match with the filter shown later.</p>
           </section>
           <section class="helpdesk-example" aria-labelledby="helpdesk-form-detail-title">
             <div class="helpdesk-example-heading"><span class="walkthrough-index">05 / 10</span><h4 id="helpdesk-form-detail-title">Complementary request-form view</h4></div>
-            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Complementary request-form view" data-image-caption="A second view of the same form connects admin configuration with the requestor interface." aria-label="Enlarge complementary request-form screenshot">
+            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Complementary request-form view" data-image-caption="Required markers and dropdowns connect the configured fields to the requestor view." aria-label="Enlarge complementary request-form screenshot">
               <img src="./assets/helpdesk/request-form-complementary-view.jpg" alt="osTicket request form showing the help topic, required fields, date guidance, region, platform, store, brand, and issue summary, with identifying details redacted." width="802" height="810" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
-            </button></figure>
-            <p>This second view of the same form connects the field labels, dropdowns, and required settings maintained in Section A with the interface requestors use.</p>
+            </button><figcaption>Required markers and dropdowns connect the configured fields to the requestor view.</figcaption></figure>
+            <p>This is a complementary view of the same form, rather than a separate workflow step or a submitted-ticket result.</p>
           </section>
         </div>
       </details>
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="helpdesk-routing-filters" data-case-section="Routing filters" open>
         <summary><span class="walkthrough-index">SECTION C / ROUTING CONFIGURATION</span><h3>Configuring ticket distribution</h3></summary>
         <div class="disclosure-body">
           <section class="helpdesk-example" aria-labelledby="helpdesk-filters-title">
             <div class="helpdesk-example-heading"><span class="walkthrough-index">06 / 10</span><h4 id="helpdesk-filters-title">Ticket Filters overview</h4></div>
-            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Ticket Filters overview" data-image-caption="The existing filter list exposes status, execution order, and rule counts for maintenance." aria-label="Enlarge Ticket Filters overview screenshot">
+            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Ticket Filters overview" data-image-caption="Status, execution order, and rule counts appear beside each existing filter." aria-label="Enlarge Ticket Filters overview screenshot">
               <img src="./assets/helpdesk/ticket-filters-overview.png" alt="osTicket Ticket Filters table showing existing filters, active status, execution order, rule counts, target channel, and dates." width="805" height="648" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
-            </button></figure>
-            <p>The existing routing filters show their status, execution order, and rule counts. I maintain applicable filters and check assignment behavior as requirements change; this overview does not imply that I created every filter shown.</p>
+            </button><figcaption>Status, execution order, and rule counts appear beside each existing filter.</figcaption></figure>
+            <p>I maintain applicable routing filters as requirements change. This overview does not imply that I created every filter shown.</p>
           </section>
           <section class="helpdesk-example" aria-labelledby="helpdesk-rules-title">
             <div class="helpdesk-example-heading"><span class="walkthrough-index">07 / 10</span><h4 id="helpdesk-rules-title">Filter Rules</h4></div>
-            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Filter Rules" data-image-caption="Match All requires every configured condition to match before the filter action applies." aria-label="Enlarge Filter Rules screenshot">
+            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Filter Rules" data-image-caption="Match All is selected above three individually configured conditions." aria-label="Enlarge Filter Rules screenshot">
               <img src="./assets/helpdesk/filter-rules-match-all.jpg" alt="osTicket Filter Rules tab with Match All selected, two Equal comparisons for configured fields, and a Contains comparison for an issue-summary keyword." width="954" height="580" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
-            </button></figure>
-            <p>This example uses <strong>Match All</strong>. It combines <strong>Equal</strong> comparisons for configured fields, such as a selected region and brand, with a <strong>Contains</strong> condition for an issue-summary keyword. All configured conditions must match for this example.</p>
+            </button><figcaption>Match All is selected above three individually configured conditions.</figcaption></figure>
+            <p><strong>Match All</strong> requires every configured condition to match. Here, region and brand use <strong>Equal</strong>, while the issue summary uses <strong>Contains</strong> for a keyword. Those individual operators do not change the all-conditions requirement.</p>
           </section>
           <section class="helpdesk-example" aria-labelledby="helpdesk-actions-title">
             <div class="helpdesk-example-heading"><span class="walkthrough-index">08 / 10</span><h4 id="helpdesk-actions-title">Filter Actions</h4></div>
-            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Filter Actions" data-image-caption="The configured action assigns a matching request to the designated agent, whose identity remains hidden." aria-label="Enlarge Filter Actions screenshot with agent identity hidden">
+            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Filter Actions" data-image-caption="Assign Agent is configured; the selected agent identity is redacted." aria-label="Enlarge Filter Actions screenshot with agent identity hidden">
               <img src="./assets/helpdesk/filter-actions-assign-agent.jpg" alt="osTicket Filter Actions tab showing an Assign Agent action with the selected agent identity redacted and a notice about processing order." width="951" height="535" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
-            </button></figure>
-            <p>When a filter matches, it runs the configured <strong>Assign Agent</strong> action. In the intended workflow, the designated agent receives the assignment inside the helpdesk. Other filters can override actions depending on execution order. The agent identity remains hidden in the supplied screenshot.</p>
+            </button><figcaption>Assign Agent is configured; the selected agent identity is redacted.</figcaption></figure>
+            <p>This action is intended to assign matching requests to the designated agent. The processing-order notice matters: other filters can override an action depending on execution order.</p>
           </section>
         </div>
       </details>
-      <details class="walkthrough-disclosure" open>
+      <details class="walkthrough-disclosure" id="helpdesk-operational-context" data-case-section="Operational context" open>
         <summary><span class="walkthrough-index">SECTION D / OPERATIONAL CONTEXT</span><h3>Agent-side and operational context</h3></summary>
         <div class="disclosure-body">
           <section class="helpdesk-example" aria-labelledby="helpdesk-queue-title">
             <div class="helpdesk-example-heading"><span class="walkthrough-index">09 / 10</span><h4 id="helpdesk-queue-title">Agent ticket queue</h4></div>
-            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Agent ticket queue" data-image-caption="Agents review and manage incoming tickets in the helpdesk queue; assignment details are redacted." aria-label="Enlarge agent ticket queue screenshot with details redacted">
+            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Agent ticket queue" data-image-caption="The queue includes custom-field columns; ticket and assignment details are redacted." aria-label="Enlarge agent ticket queue screenshot with details redacted">
               <img src="./assets/helpdesk/agent-ticket-queue.jpg" alt="osTicket agent Open ticket queue with ticket numbers, dates, and custom-field columns; central ticket and assignment details are redacted." width="1900" height="861" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
-            </button></figure>
-            <p>Agents use this queue to review and manage incoming tickets in osTicket. Assignment details are redacted, so this image does not verify that a particular test ticket reached a particular agent.</p>
+            </button><figcaption>The queue includes custom-field columns; ticket and assignment details are redacted.</figcaption></figure>
+            <p>This agent-side view cannot confirm that a particular test ticket reached a particular agent.</p>
           </section>
           <section class="helpdesk-example" aria-labelledby="helpdesk-dashboard-title">
             <div class="helpdesk-example-heading"><span class="walkthrough-index">10 / 10</span><h4 id="helpdesk-dashboard-title">Activity dashboard</h4></div>
-            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Activity dashboard" data-image-caption="Existing system-wide reporting provides operational context for helpdesk activity." aria-label="Enlarge activity dashboard screenshot">
+            <figure><button class="screenshot-trigger" type="button" data-enlarge-image data-image-title="Activity dashboard" data-image-caption="Ticket Activity and Statistics report across the existing helpdesk." aria-label="Enlarge activity dashboard screenshot">
               <img src="./assets/helpdesk/activity-dashboard.jpg" alt="Existing osTicket dashboard showing a Ticket Activity line chart and a system-wide statistics table with department identities hidden." width="1896" height="850" loading="lazy" decoding="async">
               <span class="screenshot-hint">Enlarge screenshot <svg class="icon" aria-hidden="true"><use href="#arrow-up"/></svg></span>
-            </button></figure>
-            <p>This existing dashboard provides system-wide reporting context for helpdesk activity. Its statistics describe the system, rather than my personal performance or measured improvements from my work.</p>
+            </button><figcaption>Ticket Activity and Statistics report across the existing helpdesk.</figcaption></figure>
+            <p>These are system-wide figures, not personal achievements or measured results of my configuration work.</p>
           </section>
         </div>
       </details>
     </div>
+    <section class="case-reasoning" id="helpdesk-reasoning" data-case-section="Decisions &amp; verification" aria-labelledby="helpdesk-reasoning-title">
+      <h3 id="helpdesk-reasoning-title">Challenge, approach &amp; verification</h3>
+      <p><strong>Challenge.</strong> Keep request details and assignment rules aligned with changing team needs within an existing helpdesk.</p>
+      <p><strong>Approach.</strong> Maintain structured forms and reusable dropdown options, then configure the relevant filter conditions and designated-agent action. Execution order is a constraint because other filters can override actions.</p>
+      <p><strong>Verification.</strong> The supplied images show the configured conditions, assignment action, and related interfaces. They do not establish a successful end-to-end routing test: the form is incomplete and ticket-assignment details are redacted. The dashboard provides system-wide context only.</p>
+    </section>
   </template>
   <dialog class="image-dialog" id="image-dialog" aria-labelledby="image-title" aria-describedby="image-caption">
     <div class="image-toolbar">
